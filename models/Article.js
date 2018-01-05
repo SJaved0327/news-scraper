@@ -16,6 +16,11 @@ var ArticleSchema = new Schema ({
     type: String,
     required: true
   },
+  //summary
+  summary: {
+    type: String,
+    required: true
+  }
   //note
   //model to be nested within Article model
   note: {

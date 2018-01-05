@@ -2,7 +2,7 @@
 var mongoose = require("mongoose");
 
 // Schema constructor
-var Schema = mongoos.Schema;
+var Schema = mongoose.Schema;
 
 // ArticleSchema object created through Schema constructor
 var ArticleSchema = new Schema ({
@@ -20,7 +20,7 @@ var ArticleSchema = new Schema ({
   summary: {
     type: String,
     required: true
-  }
+  },
   //note
   //model to be nested within Article model
   note: {

@@ -1,6 +1,6 @@
 /* Scrape button */
 
-$("#scrape-button").on("click", function(event){
+$("#scrape-button").on("click", (event) => {
 	event.preventDefault();
 
   $("#article-div").empty();
@@ -9,7 +9,7 @@ $("#scrape-button").on("click", function(event){
     method: "GET",
     url: "/scrape"
   })
-  	.done(function(data){
+  	.done((data) => {
 
   		if (data){
   			alert(`You've got ${data.length} epic lists to read!`);
@@ -17,15 +17,13 @@ $("#scrape-button").on("click", function(event){
   			alert(`No epic lists today!`);
   		}
   		
-  		for(var i = 0; i < data.length; i++){
-  			
-  			var row = data[i];
+  		data.forEach((item) => {
 
-  			var article = $("<div class='card'>");
+  			const article = $("<div class='card'>");
 
-  			article.append(`<h5 class='card-header'><a target='_blank' href='${data[i].link}'>${data[i].title}</a></h5>`);
+  			article.append(`<h5 class='card-header'><a target='_blank' href='${item.link}'>${item.title}</a></h5>`);
 
-  			article.append(`<div class='card-body'><p class='card-text'>${data[i].summary}</p></div>`);
+  			article.append(`<div class='card-body'><p class='card-text'>${item.summary}</p></div>`);
 
   			$("#article-div").append(article);
 
@@ -37,7 +35,7 @@ $("#scrape-button").on("click", function(event){
 
 /* Saved Articles Button */
 
-$("#scrape-button").on("click", function(event){
+$("#scrape-button").on("click", (event) => {
 
   event.preventDefault();
 
@@ -47,7 +45,7 @@ $("#scrape-button").on("click", function(event){
     method: "GET",
     url: "/articles"
   })
-    .done(function(data){
+    .done((data) => {
 
       if (data){
         alert(`You've got ${data.length} epic lists to read!`);
@@ -55,15 +53,13 @@ $("#scrape-button").on("click", function(event){
         alert(`No epic lists today!`);
       }
       
-      for(var i = 0; i < data.length; i++){
-        
-        var row = data[i];
+      data.forEach((item) => {
 
-        var article = $("<div class='card'>");
+        const article = $("<div class='card'>");
 
-        article.append(`<h5 class='card-header'><a target='_blank' href='${data[i].link}'>${data[i].title}</a></h5>`);
+        article.append(`<h5 class='card-header'><a target='_blank' href='${item.link}'>${item.title}</a></h5>`);
 
-        article.append(`<div class='card-body'><p class='card-text'>${data[i].summary}</p></div>`);
+        article.append(`<div class='card-body'><p class='card-text'>${item.summary}</p></div>`);
 
         $("#article-div").append(article);
 

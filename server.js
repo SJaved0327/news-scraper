@@ -1,21 +1,21 @@
 // * npm packages
-var express = require("express");
-var bodyParser = require("body-parser");
-var logger = require("morgan");
-var mongoose = require("mongoose");
+const express = require("express");
+const bodyParser = require("body-parser");
+const logger = require("morgan");
+const mongoose = require("mongoose");
 //scraping tools
-var cheerio = require("cheerio");
-var request = require("request");
+const cheerio = require("cheerio");
+const request = require("request");
 
 // * database
 // require all models
-var db = require("./models");
+const db = require("./models");
 // establish port
-var PORT = 3000;
+const PORT = 3000;
 
 //* app
 // initialize express
-var app = express();
+const app = express();
 
 //* middleware
 // set up morgan for loggin requests
@@ -38,27 +38,29 @@ app.get("/scrape", function(req, res){
 	request("https://www.autostraddle.com/tag/epic/", function(error, response, html){
 		//load data into cherrio
 		//save it as $ as shorthand
-		var $ = cheerio.load(html);
+		const $ = cheerio.load(html);
 		//create empty array to hold result objects in
-		var results = [];
+		let results = [];
 		//grab every header tag with entry-header class
 		$("article.tag-epic").each(function(i, element){
 			//empty result object will be populated with key data pieces
-			var result = {};
+			const result = {};
 			//save the title of each article
-			result.title = $(element)
+			const title = $(element)
 				.find("h1")
 				.children("a")
 				.text();
 			//save the link of each article
-			result.link = $(element)
+			const link = $(element)
 				.find("h1")
 				.children("a")
 				.attr("href");
 			//save summary of each article
-			result.summary = $(element)
+			const summary = $(element)
 				.children("div.entry-summary")
 				.text();
+			//make title, link, summary keys in result object
+			const {title, link, summary} = result;
 			//push result to results array
 			results.push(result);
 		});

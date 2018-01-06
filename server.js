@@ -32,13 +32,15 @@ mongoose.connect("mongodb://localhost/web-scraper");
 //* routes
 
 // GET
-// route :: scrape autostraddle for articles and store in db
+// route :: scrape autostraddle for articles and send to webpage to be rendered
 app.get("/scrape", function(req, res){
 	//make request call to grab body of html
 	request("https://www.autostraddle.com/tag/epic/", function(error, response, html){
 		//load data into cherrio
 		//save it as $ as shorthand
 		var $ = cheerio.load(html);
+		//create empty array to hold result objects in
+		var results = [];
 		//grab every header tag with entry-header class
 		$("article.tag-epic").each(function(i, element){
 			//empty result object will be populated with key data pieces
@@ -57,20 +59,56 @@ app.get("/scrape", function(req, res){
 			result.summary = $(element)
 				.children("div.entry-summary")
 				.text();
-			//create new Article using result object
-			db.Article
-				.create(result)
-				.then(function(dbArticle){
-					//if scrape successful, notify client
-					res.send("Scrape Complete");
-				})
-				.catch(function(err){
-					//if error, send it to client
-					res.json(err);
-				});
+			//push result to results array
+			results.push(result);
 		});
+
+	res.json(results);
+
 	});
 });
+
+// // GET
+// // route :: scrape autostraddle for articles and store in db
+// app.get("/scrape", function(req, res){
+// 	//make request call to grab body of html
+// 	request("https://www.autostraddle.com/tag/epic/", function(error, response, html){
+// 		//load data into cherrio
+// 		//save it as $ as shorthand
+// 		var $ = cheerio.load(html);
+// 		//grab every header tag with entry-header class
+// 		$("article.tag-epic").each(function(i, element){
+// 			//empty result object will be populated with key data pieces
+// 			var result = {};
+// 			//save the title of each article
+// 			result.title = $(element)
+// 				.find("h1")
+// 				.children("a")
+// 				.text();
+// 			//save the link of each article
+// 			result.link = $(element)
+// 				.find("h1")
+// 				.children("a")
+// 				.attr("href");
+// 			//save summary of each article
+// 			result.summary = $(element)
+// 				.children("div.entry-summary")
+// 				.text();
+// 			//create new Article using result object
+// 			db.Article
+// 				.create(result)
+// 				.then(function(dbArticle){
+// 					//if scrape successful, notify client
+// 					res.send("Scrape Complete");
+// 				})
+// 				.catch(function(err){
+// 					//if error, send it to client
+// 					res.json(err);
+// 				});
+// 		});
+// 	});
+// });
+
 
 // GET
 // route :: get all articles from the db

@@ -3,7 +3,7 @@
 $("#scrape-button").on("click", (event) => {
 	event.preventDefault();
 
-  $("#article-div").empty();
+  //$("#article-div").empty();
 
 	$.ajax({
     method: "GET",
@@ -21,13 +21,13 @@ $("#scrape-button").on("click", (event) => {
 
   			const article = $("<div class='card'>");
 
-  			article.append(`<h5 class='card-header'><a target='_blank' href='${item.link}'>${item.title}</a></h5>`);
+  			article.append(`<h5 class='card-header'><a target='_blank' href='${item.link}'>${item.title}</a></h5><button></button>`);
 
   			article.append(`<div class='card-body'><p class='card-text'>${item.summary}</p></div>`);
 
   			$("#article-div").append(article);
 
-  		};
+  		});
 
   	});
 
@@ -39,7 +39,7 @@ $("#scrape-button").on("click", (event) => {
 
   event.preventDefault();
 
-  $("#article-div").empty();
+  //$("#article-div").empty();
 
   $.ajax({
     method: "GET",
@@ -63,7 +63,7 @@ $("#scrape-button").on("click", (event) => {
 
         $("#article-div").append(article);
 
-      };
+      });
 
     });
 

@@ -46,21 +46,19 @@ app.get("/scrape", function(req, res){
 			//empty result object will be populated with key data pieces
 			const result = {};
 			//save the title of each article
-			const title = $(element)
+			result.title = $(element)
 				.find("h1")
 				.children("a")
 				.text();
 			//save the link of each article
-			const link = $(element)
+			result.link = $(element)
 				.find("h1")
 				.children("a")
 				.attr("href");
 			//save summary of each article
-			const summary = $(element)
+			result.summary = $(element)
 				.children("div.entry-summary")
 				.text();
-			//make title, link, summary keys in result object
-			const {title, link, summary} = result;
 			//push result to results array
 			results.push(result);
 		});

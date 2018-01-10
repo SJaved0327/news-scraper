@@ -6,7 +6,7 @@ h1 {
 	font-family: 'Patua One', cursive;;
 }
 
-.card{
+.card {
 	margin: 20px;
 }
 
@@ -16,4 +16,17 @@ h1 {
 
 body {
 	font-family: 'Raleway', sans-serif;
+}
+
+#brand {
+	font-weight: bolder;
+	font-size: 1.5em;
+}
+
+#save-button {
+	float: right;
+}
+
+p, #save-button {
+	text-height: 0.7em;
 }
